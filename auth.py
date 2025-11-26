@@ -3,7 +3,7 @@ import os
 import logging
 import requests
 import re
-
+from utils import ENV_FILE
 
 def get_credentials() -> tuple[str, str]:
     '''Recupera las credenciales de usuario desde un archivo .env.
@@ -15,7 +15,7 @@ def get_credentials() -> tuple[str, str]:
     '''
 
     try:
-        if load_dotenv("C:/Users/francp60/QUERY_QTS/credentials.env"):
+        if load_dotenv(ENV_FILE):
             username = os.getenv("user")
             password = os.getenv("password")
             if not username or not password:
