@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format="%(message)s",
                     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -30,3 +31,8 @@ def log_status(message:str, status:str="info") -> None:
         logging.info(f"{prefix} {message}")
     else:
         logging.info(f"{prefix} {message}")
+
+BASE_DIR = Path(__file__).resolve().parent
+CSV_DIR = BASE_DIR / "QUERY_QTS_CSV"
+LOG_DIR = BASE_DIR / "log"
+ENV_FILE = BASE_DIR / "credentials.env"
