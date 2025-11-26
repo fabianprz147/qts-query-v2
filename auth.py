@@ -1,0 +1,70 @@
+from dotenv import load_dotenv
+import os
+import logging
+import requests
+import re
+
+
+def get_credentials() -> tuple[str, str]:
+    '''Recupera las credenciales de usuario desde un archivo .env.
+    
+    Args:
+        None
+    Returns:
+        tuple[str, str]: Una tupla que contiene el nombre de usuario y la contraseña.
+    '''
+
+    try:
+        if load_dotenv("C:/Users/francp60/QUERY_QTS/credentials.env"):
+            username = os.getenv("user")
+            password = os.getenv("password")
+            if not username or not password:
+                raise ValueError("Credenciales inválidas")
+            else:
+                logging.info("[\033[92mOK\033[0m]Credenciales recuperadas")
+                return username, password
+        else:
+            raise FileNotFoundError("Credenciales no encontradas")
+    except (FileNotFoundError, ValueError) as e:
+        logging.error(f"[\033[91mError\033[0m]: {e}")
+        return None, None
+
+
+def login(cred: tuple[str, str]) -> str:
+
+    url_login = "https://secure.qts.com/customerportal/Service/CustomerPortalWS.asmx/Login"
+
+    req_head_login= {
+    "Content-Type": "application/json;charset=UTF-8",
+    "Accept": "application/json, text/javascript, */*; q=0.01",
+    "X-Requested-With": "XMLHttpRequest"
+    }
+
+    payload_login= {
+        "username" : cred[0],
+        "password" : cred[1]
+    }
+
+    try:
+        req_login = requests.post(url=url_login, headers=req_head_login, json=payload_login)
+
+        req_login.raise_for_status()
+
+        response_login = req_login.json().get('d',{})
+        
+        if req_login.status_code == 200 and response_login.get('success') is True:
+
+            ckey = re.search(r"cKey:'([^']+)'", response_login.get('data', '')).group(1)
+
+            if ckey:
+                last_login = re.search(r"LastLogin:'([^']+)'", response_login.get('data', '')).group(1)
+                print(f"[\033[92mOK\033[0m]Sesión iniciada correctamente: {last_login}")
+                return ckey
+        else:
+            raise ConnectionError("Error de autenticación en QTS")
+    except requests.HTTPError as e:
+        logging.error(f"[\033[91mError\033[0m]Solicitud al servidor fallida: {e}")
+        return None
+    except ConnectionError as e:
+        print(f"[\033[91mError\033[0m]No se pudo iniciar sesión: {e}")
+        return None
