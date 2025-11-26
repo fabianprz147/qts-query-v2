@@ -3,7 +3,7 @@ import os
 import logging
 import requests
 import re
-from utils import ENV_FILE
+from utils import ENV_FILE, log_status
 
 def get_credentials() -> tuple[str, str]:
     '''Recupera las credenciales de usuario desde un archivo .env.
@@ -19,14 +19,14 @@ def get_credentials() -> tuple[str, str]:
             username = os.getenv("user")
             password = os.getenv("password")
             if not username or not password:
-                raise ValueError("Credenciales inválidas")
+                log_status("Credenciales inválidas", "error")
             else:
-                logging.info("[\033[92mOK\033[0m]Credenciales recuperadas")
+                log_status("Credenciales recuperadas", "info")
                 return username, password
         else:
-            raise FileNotFoundError("Credenciales no encontradas")
+            log_status("Credenciales no encontradas", "error")
     except (FileNotFoundError, ValueError) as e:
-        logging.error(f"[\033[91mError\033[0m]: {e}")
+        log_status(f"{e}", "error")
         return None, None
 
 

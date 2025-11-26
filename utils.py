@@ -1,8 +1,8 @@
 import logging
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO, format="%(message)s",
-                    format="%(asctime)s - %(levelname)s - %(message)s",
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s [%(levelname)s] %(message)s",
                     handlers=[logging.FileHandler("qts.log"), logging.StreamHandler()])
 
 def log_status(message:str, status:str="info") -> None:
