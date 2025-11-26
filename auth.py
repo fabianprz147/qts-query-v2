@@ -31,6 +31,11 @@ def get_credentials() -> tuple[str, str]:
 
 
 def login(cred: tuple[str, str]) -> str:
+    '''Inicia sesión en el portal de QTS y recupera la clave de sesión (cKey).
+        
+        Args: cred (tuple[str, str]): Una tupla que contiene el nombre de usuario y la contraseña.
+        Returns: str: La clave de sesión (cKey) si el inicio de sesión es exitoso, None en caso contrario.
+    '''
 
     url_login = "https://secure.qts.com/customerportal/Service/CustomerPortalWS.asmx/Login"
 
