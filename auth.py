@@ -25,8 +25,8 @@ def get_credentials() -> tuple[str, str]:
                 return username, password
         else:
             log_status("Credenciales no encontradas", "error")
-    except (FileNotFoundError, ValueError) as e:
-        log_status(f"{e}", "error")
+    except FileNotFoundError as e:
+        log_status(f"Credenciales no encontradas", "error")
         return None, None
 
 
