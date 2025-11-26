@@ -32,6 +32,8 @@ def log_status(message:str, status:str="info") -> None:
     else:
         logging.info(f"{prefix} {message}")
 
+#CONSTANTES PATH
+
 BASE_DIR = Path(__file__).resolve().parent
 CSV_DIR = BASE_DIR / "QUERY_QTS_CSV"
 LOG_DIR = BASE_DIR / "log"
