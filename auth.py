@@ -65,6 +65,9 @@ def login(cred: tuple[str, str]) -> str:
                 last_login = re.search(r"LastLogin:'([^']+)'", response_login.get('data', '')).group(1)
                 log_status("Sesión iniciada correctamente", "info")
                 return ckey
+            else:
+                log_status("Error al recuperar cKey", "error")
+                return None
         else:
             log_status("Error de autenticación en QTS", "error")
             return None
