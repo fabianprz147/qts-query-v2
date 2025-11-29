@@ -1,6 +1,6 @@
 from datetime import datetime
 import pandas as pd
-from utils import PARENT_DIR
+from utils import PARENT_DIR, log_status
 
 
 def convert_csv(data: list[dict]) -> None:
@@ -26,7 +26,7 @@ def convert_csv(data: list[dict]) -> None:
 
     try:
         df.to_csv(file_name, index=False, encoding='utf-8')
-        logging.info("[\033[92mOK\033[0m]Datos exportados correctamente")
+        log_status("Datos exportados correctamente", "info")
         logging.info(f"TOTAL DE CARROS EN FLOTA: {len(df)}")    
     except Exception as e:
         logging.error(f"[\033[91mError\033[0m]Los datos no fueron exportados a tabla: {e}")
