@@ -35,6 +35,7 @@ def log_status(message:str, status:str="info") -> None:
 #CONSTANTES PATH
 
 BASE_DIR = Path(__file__).resolve().parent
+PARENT_DIR = BASE_DIR.parent
 CSV_DIR = BASE_DIR / "QUERY_QTS_CSV"
 LOG_DIR = BASE_DIR / "log"
 ENV_FILE = BASE_DIR / "credentials.env"
