@@ -57,19 +57,19 @@ def login(cred: tuple[str, str]) -> str:
 
         response_login = req_login.json().get('d',{})
         
-        if req_login.status_code == 200 and response_login.get('success') is True:
+        if req_login.status_code == 200:
 
             ckey = re.search(r"cKey:'([^']+)'", response_login.get('data', '')).group(1)
 
             if ckey:
                 last_login = re.search(r"LastLogin:'([^']+)'", response_login.get('data', '')).group(1)
-                print(f"[\033[92mOK\033[0m]Sesión iniciada correctamente: {last_login}")
+                log_status("Sesión iniciada correctamente", "info")
                 return ckey
         else:
             raise ConnectionError("Error de autenticación en QTS")
     except requests.HTTPError as e:
-        logging.error(f"[\033[91mError\033[0m]Solicitud al servidor fallida: {e}")
+        log_status(e, "error")
         return None
     except ConnectionError as e:
-        print(f"[\033[91mError\033[0m]No se pudo iniciar sesión: {e}")
+        log_status(e, "error")
         return None
