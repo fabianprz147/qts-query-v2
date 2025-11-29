@@ -5,6 +5,15 @@ from utils import log_status
 import sys
 
 def main():
+    '''
+    Main function to execute the QTS Fleet Report process.
+    Steps:
+    1. Retrieve credentials.
+    2. Log in to QTS and obtain a session key.
+    3. Query the QTS server for data.
+    4. Convert and export the data to CSV.
+    Returns: None
+    '''
     try:
         print("====================")
         print("QTS FLEET REPORT")
