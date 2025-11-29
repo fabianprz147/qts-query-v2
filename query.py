@@ -1,5 +1,6 @@
 from datetime import datetime
 import requests
+from utils import log_status
 
 
 def query_qts(ckey: str) -> dict[str, any]:
@@ -56,11 +57,17 @@ def query_qts(ckey: str) -> dict[str, any]:
         raw_json = query.json()
 
         if query.status_code == 200 and raw_json.get('d', {}).get('Success', False) is True:
-            print(f"[\033[92mOK\033[0m]Consulta exitosa")
+            log_status("Recibiendo datos...", "info")
             data_query_json = raw_json.get('d', {}).get('Records', {})
-            return data_query_json         
+            if data_query_json == {}:
+                log_status("No se encontraron datos en la consulta", "warning")
+                return {}
+            else:
+                log_status("Consulta realizada con éxito", "info")
+                return data_query_json         
         else:
-            raise ConnectionRefusedError("Se recibió una respuesta inesperada")
-    except (requests.HTTPError, ConnectionRefusedError, requests.exceptions.RequestException) as e:
-        logging.error(f"[\033[91mError\033[0m]Solicitud fallida: {e}")
+            log_status("Se recibió una respuesta inesperada", "error")
+            return {}
+    except requests.HTTPError as e:
+        log_status(e, "error")
         return {}
