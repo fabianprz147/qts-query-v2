@@ -1,13 +1,15 @@
 from datetime import datetime
 import pandas as pd
+from utils import PARENT_DIR
 
 
-def convert_csv(data_query_json: list[dict]) -> None:
+def convert_csv(data: list[dict]) -> None:
 
     ahora = datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
+    file_name = f"{PARENT_DIR}/QUERY_QTS_CSV/qts{ahora}.csv"
     file_name = f"C:/Users/francp60/QUERY_QTS/qts_csv/qts{ahora}.csv"
 
-    df = pd.DataFrame(data_query_json)
+    df = pd.DataFrame(data)
 
     date_columns = ['LastCLMDate', 'LastCLMDateTime', 'LastCLMTime', 'CurrentLegETA', 'LastCLM', 'OriginalETA', 'RequestedDelByDate', 'RouteString', 'TripStartDate', 'TripPlacementDate']
 
