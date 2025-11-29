@@ -66,10 +66,8 @@ def login(cred: tuple[str, str]) -> str:
                 log_status("Sesión iniciada correctamente", "info")
                 return ckey
         else:
-            raise ConnectionError("Error de autenticación en QTS")
+            log_status("Error de autenticación en QTS", "error")
+            return None
     except requests.HTTPError as e:
-        log_status(e, "error")
-        return None
-    except ConnectionError as e:
         log_status(e, "error")
         return None
