@@ -13,23 +13,23 @@ def main():
         print("Recuperando credenciales...")
         cred = get_credentials()
         if cred == (None, None):
-            log_status("Verificar credenciales de QTS.", "error")
+            log_status("Verificar credenciales de QTS.")
             sys.exit(1)
         print("Iniciando sesión en QTS...")
         ckey = login(cred)
         if ckey is None:
-            log_status("No se pudo iniciar sesión en QTS.", "error")
+            log_status("No se pudo iniciar sesión en QTS.")
             sys.exit(1)
         print("Realizando solicitud al servidor de QTS...")
         data = query_qts(ckey)
         if not data:
-            log_status("La consulta no tuvo resultados.", "error")
+            log_status("La consulta no tuvo resultados.")
             sys.exit(1)
         print("Transformando y exportando datos...")
         convert_csv(data)
         print("====================")
     except Exception as e:
-        log_status(f"Ocurrió un error inesperado durante la ejecución: {e}", "error")
+        log_status(f"Ocurrió un error inesperado durante la ejecución: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
