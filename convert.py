@@ -5,9 +5,15 @@ from utils import PARENT_DIR
 
 def convert_csv(data: list[dict]) -> None:
 
+    '''
+    Convierte el diccionario guardado en data a un archivo CSV.
+    Args: data (list[dict]): Lista de diccionarios con los datos obtenidos de la consulta a QTS.
+    Return: None
+    '''
+
     ahora = datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
     file_name = f"{PARENT_DIR}/QUERY_QTS_CSV/qts{ahora}.csv"
-    file_name = f"C:/Users/francp60/QUERY_QTS/qts_csv/qts{ahora}.csv"
+    #file_name = f"C:/Users/francp60/QUERY_QTS/qts_csv/qts{ahora}.csv"
 
     df = pd.DataFrame(data)
 
