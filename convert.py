@@ -27,6 +27,6 @@ def convert_csv(data: list[dict]) -> None:
     try:
         df.to_csv(file_name, index=False, encoding='utf-8')
         log_status("Datos exportados correctamente", "info")
-        logging.info(f"TOTAL DE CARROS EN FLOTA: {len(df)}")    
-    except Exception as e:
-        logging.error(f"[\033[91mError\033[0m]Los datos no fueron exportados a tabla: {e}")
+        print(f"TOTAL DE CARROS EN FLOTA: {len(df)}")
+    except:
+        log_status("Los datos no fueron exportados a tabla", "error")
