@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 import os
-import logging
 import requests
 import re
 from utils import ENV_FILE, log_status
