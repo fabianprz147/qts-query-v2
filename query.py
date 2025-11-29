@@ -5,6 +5,12 @@ from utils import log_status
 
 def query_qts(ckey: str) -> dict[str, any]:
 
+    '''
+    Recibe una cKey válida y realiza una consulta a la API de QTS.
+    Args: ckey (str): La clave de sesión (cKey) obtenida después de iniciar sesión.
+    Return: data_query_json (dict[str, any]): Un diccionario que contiene los datos de la consulta si es exitosa,
+    devuelve {} en caso contrario.
+    '''
 
     dc = int(datetime.now().timestamp()*1000)
     url_query = f"https://secure.qts.com/Qts.Reporting.WebService/Query/QueryService.asmx/QueryChange?_dc={dc}"
